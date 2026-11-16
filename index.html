@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YSA</title>
+
+<style>
+:root{
+    --bg:#0d1117;
+    --fg:#00ff88;
+    --muted:#7ee2b8;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family: Consolas, Monaco, monospace;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.terminal{
+    width:min(800px,100%);
+    border:1px solid #30363d;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 0 30px rgba(0,255,136,.1);
+}
+
+.header{
+    background:#161b22;
+    padding:10px 15px;
+    border-bottom:1px solid #30363d;
+}
+
+.dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:6px;
+}
+
+.red{background:#ff5f56;}
+.yellow{background:#ffbd2e;}
+.green{background:#27c93f;}
+
+.content{
+    padding:30px;
+    line-height:1.8;
+}
+
+.prompt{
+    color:var(--muted);
+}
+
+.cursor{
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:0;}
+}
+
+a{
+    color:#58a6ff;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+
+    <div class="header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+    </div>
+
+    <div class="content">
+        <p><span class="prompt">ysa@github:~$</span> whoami</p>
+        <p>YSA - Gabriel PETIT</p>
+
+        <br>
+
+        <p><span class="prompt">ysa@github:~$</span> cat about.txt</p>
+        <p>Student Hacker at Oteria</p>
+        <p>Pentester at CANAL+</p>
+
+        <br>
+
+        <p><span class="prompt">ysa@github:~$</span> ls links</p>
+        <p>
+            <a href="https://github.com/Gabriel-P-IT">github</a><br>
+            <a href="https://linkedin.com/in/gabriel-petit-it">linkedin</a>
+        </p>
+
+        <br>
+
+        <p><span class="prompt">ysa@github:~$</span> <span class="cursor">█</span></p>
+    </div>
+
+</div>
+
+</body>
+</html>
