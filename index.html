@@ -1,122 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YSA</title>
-
+<title>Gabriel PETIT — Audit & Pentest</title>
+<meta name="description" content="Gabriel PETIT (YSA) — Alternant Audit & Pentest chez CANAL+, étudiant en Mastère Cybersécurité Offensive à OTERIA. eCPPTv3, eJPTv2.">
 <style>
-:root{
-    --bg:#0d1117;
-    --fg:#00ff88;
-    --muted:#7ee2b8;
-}
+  :root {
+    --bg: #0b0f14;
+    --panel: #121821;
+    --line: #1f2a37;
+    --text: #d6e2ee;
+    --muted: #8496a8;
+    --accent: #3ddc97;
+    --accent2: #5ab0ff;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at top, rgba(11,15,20,.6), var(--bg) 70%);
+  }
+  a { color: var(--accent2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 6vw;
+    background: rgba(11,15,20,.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 14px;
+  }
+  nav .logo { color: var(--accent); font-weight: 700; }
+  nav ul { display: flex; gap: 22px; list-style: none; }
+  nav ul a { color: var(--muted); }
+  nav ul a:hover { color: var(--text); text-decoration: none; }
 
-body{
-    background:var(--bg);
-    color:var(--fg);
-    font-family: Consolas, Monaco, monospace;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
+  main { max-width: 960px; margin: 0 auto; padding: 0 6vw; }
+  section { padding: 80px 0 20px; }
 
-.terminal{
-    width:min(800px,100%);
-    border:1px solid #30363d;
-    border-radius:8px;
-    overflow:hidden;
-    box-shadow:0 0 30px rgba(0,255,136,.1);
-}
+  .hero { min-height: 86vh; display: flex; flex-direction: column; justify-content: center; }
+  .prompt { font-family: var(--mono); color: var(--accent); font-size: 15px; margin-bottom: 18px; }
+  .prompt .cursor { display: inline-block; width: 9px; height: 1.1em; background: var(--accent); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  h1 { font-size: clamp(40px, 8vw, 72px); line-height: 1.05; letter-spacing: -1px; }
+  h1 span { color: var(--accent); }
+  .tagline { margin-top: 18px; font-size: clamp(17px, 2.4vw, 21px); color: var(--muted); max-width: 640px; }
+  .tagline strong { color: var(--text); font-weight: 600; }
+  .cta { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); font-size: 14px;
+    padding: 12px 20px; border-radius: 6px;
+    border: 1px solid var(--accent); color: var(--accent);
+    transition: background .2s, color .2s;
+  }
+  .btn:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+  .btn.ghost { border-color: var(--line); color: var(--text); }
+  .btn.ghost:hover { background: var(--panel); color: var(--text); }
 
-.header{
-    background:#161b22;
-    padding:10px 15px;
-    border-bottom:1px solid #30363d;
-}
+  .stats {
+    margin-top: 46px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px;
+  }
+  .stat { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 16px 18px; }
+  .stat b { display: block; font-family: var(--mono); font-size: 26px; color: var(--accent); }
+  .stat span { font-size: 13px; color: var(--muted); }
 
-.dot{
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    display:inline-block;
-    margin-right:6px;
-}
+  h2 { font-family: var(--mono); font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+  h3.title { font-size: 30px; margin-bottom: 26px; }
 
-.red{background:#ff5f56;}
-.yellow{background:#ffbd2e;}
-.green{background:#27c93f;}
+  .about p { color: var(--muted); max-width: 700px; margin-bottom: 14px; font-size: 17px; }
+  .about strong { color: var(--text); }
 
-.content{
-    padding:30px;
-    line-height:1.8;
-}
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 22px; transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card h4 { font-size: 17px; margin-bottom: 12px; }
+  .card p { color: var(--muted); font-size: 15px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: var(--mono); font-size: 12px;
+    padding: 4px 10px; border-radius: 99px;
+    background: rgba(61,220,151,.08); color: var(--accent);
+    border: 1px solid rgba(61,220,151,.25);
+  }
 
-.prompt{
-    color:var(--muted);
-}
+  .cert .issuer, .platform .meta { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .cert h4, .platform h4 { margin-bottom: 4px; }
+  .cert .date { font-family: var(--mono); font-size: 13px; color: var(--accent2); }
+  .platform .big { font-family: var(--mono); font-size: 24px; color: var(--accent); margin: 8px 0 12px; }
+  .platform .links { font-family: var(--mono); font-size: 13px; }
 
-.cursor{
-    animation:blink 1s infinite;
-}
+  .timeline { border-left: 2px solid var(--line); padding-left: 24px; }
+  .step { position: relative; margin-bottom: 30px; }
+  .step::before {
+    content: ""; position: absolute; left: -31px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+  }
+  .step.now::before { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  .step .date { font-family: var(--mono); font-size: 13px; color: var(--accent2); }
+  .step h4 { font-size: 18px; margin: 2px 0; }
+  .step .org { color: var(--text); font-size: 15px; }
+  .step p { color: var(--muted); font-size: 15px; margin-top: 4px; }
+  .sub { font-family: var(--mono); font-size: 14px; color: var(--muted); margin: 34px 0 18px; }
 
-@keyframes blink{
-    50%{opacity:0;}
-}
+  .contact { text-align: center; padding-bottom: 60px; }
+  .contact p { color: var(--muted); max-width: 520px; margin: 0 auto 28px; }
+  .contact .cta { justify-content: center; }
 
-a{
-    color:#58a6ff;
-    text-decoration:none;
-}
+  footer {
+    text-align: center; padding: 28px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+  }
 
-a:hover{
-    text-decoration:underline;
-}
+  @media (max-width: 600px) {
+    nav ul { gap: 14px; font-size: 13px; }
+    nav ul li.hide-sm { display: none; }
+    section { padding-top: 60px; }
+    h3.title { font-size: 26px; }
+  }
 </style>
 </head>
-
 <body>
 
-<div class="terminal">
+<nav>
+  <a href="#" class="logo">~/ysa</a>
+  <ul>
+    <li><a href="#about">À propos</a></li>
+    <li class="hide-sm"><a href="#certs">Certifs</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <div class="header">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
+<main>
+
+  <!-- ACCUEIL -->
+  <section class="hero">
+    <p class="prompt">ysa@portfolio:~$ whoami <span class="cursor"></span></p>
+    <h1>Gabriel PETIT<br><span>Audit & Pentest</span></h1>
+    <p class="tagline">Auditeur cybersécurité en alternance chez <strong>CANAL+</strong> · Mastère Cybersécurité Offensive à <strong>OTERIA</strong> · eCPPTv3 · eJPTv2</p>
+    <div class="cta">
+      <a href="#parcours" class="btn">Mon parcours</a>
+      <a href="https://www.root-me.org/YSA-591622" class="btn ghost" target="_blank" rel="noopener">Root Me ↗</a>
+      <a href="https://app.hackthebox.com/public/users/626810" class="btn ghost" target="_blank" rel="noopener">Hack The Box ↗</a>
+      <a href="https://www.linkedin.com/in/gabriel-petit-it" class="btn ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>7400</b><span>points Root Me</span></div>
+      <div class="stat"><b>2</b><span>certifications pentest</span></div>
+      <div class="stat"><b>2 ans</b><span>en SOC N1/N2</span></div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about" class="about">
+    <h2>01. à_propos</h2>
+    <h3 class="title">Qui suis-je ?</h3>
+    <p>Je suis <strong>Gabriel</strong>, alias <strong>YSA</strong>, passionné de <strong>sécurité offensive</strong>. Après un BUT Réseaux & Télécommunications parcours cybersécurité, je poursuis un <strong>Mastère Expert Technique de la Cybersécurité</strong> à OTERIA.</p>
+    <p>J'ai d'abord travaillé côté défense : deux ans en alternance en <strong>SOC N1/N2</strong> en milieu industriel, à superviser et optimiser un SIEM. Je suis aujourd'hui passé côté attaque, en <strong>audit & pentest</strong> chez CANAL+ Tech.</p>
+    <p>En dehors du travail, je pratique régulièrement sur <strong>Root Me</strong> et <strong>Hack The Box</strong>, et je suis responsable du pôle technique d'<strong>OteriHack</strong>.</p>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="skills">
+    <h2>02. compétences</h2>
+    <h3 class="title">Ma boîte à outils</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>⚔️ Offensif</h4>
+        <div class="tags">
+          <span class="tag">Pentest</span><span class="tag">Red Teaming</span>
+          <span class="tag">Web</span><span class="tag">OSINT</span>
+          <span class="tag">Énumération</span><span class="tag">Exploitation</span>
+        </div>
+      </div>
+      <div class="card">
+        <h4>🛡️ Défensif</h4>
+        <div class="tags">
+          <span class="tag">SOC N1/N2</span><span class="tag">SIEM</span>
+          <span class="tag">Supervision</span><span class="tag">Audit</span>
+        </div>
+      </div>
+      <div class="card">
+        <h4>🖧 Réseaux & systèmes</h4>
+        <div class="tags">
+          <span class="tag">Réseaux</span><span class="tag">Télécoms</span>
+          <span class="tag">Opérations réseau</span><span class="tag">HTML/CSS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS & PLATEFORMES -->
+  <section id="certs">
+    <h2>03. certifications</h2>
+    <h3 class="title">Certifs & entraînement</h3>
+    <div class="grid">
+      <div class="card cert">
+        <div class="issuer">INE Security</div>
+        <h4>eCPPTv3</h4>
+        <p>Certified Professional Penetration Tester</p>
+        <div class="date">juil. 2026</div>
+      </div>
+      <div class="card cert">
+        <div class="issuer">INE Security</div>
+        <h4>eJPTv2</h4>
+        <p>eLearnSecurity Junior Penetration Tester</p>
+        <div class="date">déc. 2025</div>
+      </div>
     </div>
 
-    <div class="content">
-        <p><span class="prompt">ysa@github:~$</span> whoami</p>
-        <p>YSA - Gabriel PETIT</p>
+    <p class="sub">// plateformes</p>
+    <div class="grid">
+      <div class="card platform">
+        <div class="meta">CTF · challenges</div>
+        <h4>Root Me</h4>
+        <div class="big">7400 pts</div>
+        <div class="links"><a href="https://www.root-me.org/YSA-591622" target="_blank" rel="noopener">profil YSA ↗</a></div>
+      </div>
+      <div class="card platform">
+        <div class="meta">Machines · Academy</div>
+        <h4>Hack The Box</h4>
+        <p>Pratique régulière et parcours Penetration Tester sur HTB Academy.</p>
+        <div class="links" style="margin-top:12px"><a href="https://app.hackthebox.com/public/users/626810" target="_blank" rel="noopener">profil ↗</a></div>
+      </div>
+    </div>
+  </section>
 
-        <br>
-
-        <p><span class="prompt">ysa@github:~$</span> cat about.txt</p>
-        <p>Student Hacker at Oteria</p>
-        <p>Pentester at CANAL+</p>
-
-        <br>
-
-        <p><span class="prompt">ysa@github:~$</span> ls links</p>
-        <p>
-            <a href="https://github.com/Gabriel-P-IT">github</a><br>
-            <a href="https://linkedin.com/in/gabriel-petit-it">linkedin</a>
-        </p>
-
-        <br>
-
-        <p><span class="prompt">ysa@github:~$</span> <span class="cursor">█</span></p>
+  <!-- PARCOURS -->
+  <section id="parcours">
+    <h2>04. parcours</h2>
+    <h3 class="title">Expérience</h3>
+    <div class="timeline">
+      <div class="step now">
+        <div class="date">sept. 2026 — aujourd'hui</div>
+        <h4>Auditeur sécurité · Alternance</h4>
+        <div class="org">CANAL+ Group — Canal+ Tech</div>
+        <p>Audit et tests d'intrusion dans le secteur audiovisuel.</p>
+      </div>
+      <div class="step now">
+        <div class="date">juil. 2026 — aujourd'hui</div>
+        <h4>Responsable Pôle Technique</h4>
+        <div class="org">OteriHack</div>
+      </div>
+      <div class="step">
+        <div class="date">sept. 2024 — août 2026</div>
+        <h4>Assistant technique S.I. / SOC N1-N2 · Alternance</h4>
+        <div class="org">Les Zelles — Groupe PANDO</div>
+        <p>Milieu industriel. Maintenance, supervision et optimisation du SIEM, réseaux informatiques.</p>
+      </div>
     </div>
 
-</div>
+    <h3 class="title" style="margin-top:50px">Formation</h3>
+    <div class="timeline">
+      <div class="step now">
+        <div class="date">2026 — 2028</div>
+        <h4>Mastère Expert Technique de la Cybersécurité</h4>
+        <div class="org">OTERIA Cyber School</div>
+        <p>Spécialisation cybersécurité offensive.</p>
+      </div>
+      <div class="step">
+        <div class="date">2023 — 2026</div>
+        <h4>BUT Réseaux & Télécommunications</h4>
+        <div class="org">IUT Nancy-Brabois</div>
+        <p>Parcours Cybersécurité · MOOC SecNumacadémie (ANSSI) · parcours Penetration Tester HTB Academy.</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>05. contact</h2>
+    <h3 class="title">On en parle ?</h3>
+    <p>Un projet, une question sur la sécu ou juste envie d'échanger ? Retrouve-moi ici :</p>
+    <div class="cta">
+      <a href="https://www.linkedin.com/in/gabriel-petit-it" class="btn" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Gabriel-P-IT" class="btn ghost" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.root-me.org/YSA-591622" class="btn ghost" target="_blank" rel="noopener">Root Me</a>
+      <!-- <a href="mailto:ton.email@exemple.fr" class="btn ghost">Email</a> -->
+    </div>
+  </section>
+
+</main>
+
+<footer>© <span id="y"></span> Gabriel PETIT · YSA — hébergé sur GitHub Pages</footer>
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
