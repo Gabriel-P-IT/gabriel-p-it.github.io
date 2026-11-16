@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Gabriel PETIT | YSA</title>
 
 <style>
 :root{
     --bg:#0a0a0a;
+    --panel:#111;
     --fg:#00ff88;
     --text:#d0d0d0;
     --blue:#58a6ff;
+    --border:#222;
 }
 
 *{
@@ -19,17 +22,45 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:var(--bg);
     color:var(--text);
     font-family:Consolas, Monaco, monospace;
-    max-width:1000px;
+    max-width:1100px;
     margin:auto;
     padding:40px 20px;
     line-height:1.8;
 }
 
-.header{
+.nav{
+    margin-bottom:40px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    padding:15px;
+}
+
+.nav a{
+    color:var(--fg);
+    text-decoration:none;
+    margin-right:15px;
+}
+
+.nav a:hover{
+    color:white;
+}
+
+.ascii{
+    color:var(--fg);
+    white-space:pre;
+    overflow-x:auto;
+    margin-bottom:30px;
+}
+
+.section{
     margin-bottom:40px;
 }
 
@@ -38,13 +69,12 @@ body{
 }
 
 .prompt{
-    color:var(--fg);
     font-weight:bold;
 }
 
 .output{
     margin-left:20px;
-    margin-bottom:25px;
+    margin-top:10px;
 }
 
 .output ul{
@@ -52,7 +82,11 @@ body{
 }
 
 .output li{
-    margin:3px 0;
+    margin:4px 0;
+}
+
+.highlight{
+    color:var(--fg);
 }
 
 a{
@@ -74,31 +108,27 @@ a:hover{
     }
 }
 
-.ascii{
-    color:var(--fg);
-    margin-bottom:30px;
-    white-space:pre;
-    overflow-x:auto;
-}
-
-.highlight{
-    color:var(--fg);
-}
-
 .footer{
     margin-top:50px;
     color:#666;
+    border-top:1px solid var(--border);
+    padding-top:20px;
 }
 
 @media(max-width:700px){
     body{
-        padding:20px;
         font-size:14px;
+        padding:20px;
+    }
+
+    .nav a{
+        display:inline-block;
+        margin-bottom:8px;
     }
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="ascii">
@@ -109,10 +139,25 @@ a:hover{
 ▄██   ███ ▀███████████ ▀███████████
 ███   ███          ███   ███    ███
 ███   ███    ▄█    ███   ███    ███
- ▀█████▀   ▄████████▀    ███    █▀ 
-
+ ▀█████▀   ▄████████▀    ███    █▀
 </div>
 
+<div class="nav">
+<b>root@portfolio</b><br><br>
+
+<a href="#about">about</a>
+<a href="#certifications">certifications</a>
+<a href="#skills">skills</a>
+<a href="#linux">linux</a>
+<a href="#experience">experience</a>
+<a href="#platforms">platforms</a>
+<a href="#ctf">ctf</a>
+<a href="#projects">projects</a>
+<a href="#writeups">writeups</a>
+<a href="#links">links</a>
+</div>
+
+<section id="about" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> whoami
 </div>
@@ -121,6 +166,8 @@ a:hover{
 Gabriel PETIT (YSA)
 </div>
 
+<br>
+
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat about.txt
 </div>
@@ -128,18 +175,22 @@ Gabriel PETIT (YSA)
 <div class="output">
 Alternant Audit & Pentest chez <span class="highlight">CANAL+</span><br>
 Étudiant en Mastère Expert Technique de la Cybersécurité à <span class="highlight">OTERIA Cyber School</span><br>
-Ancien analyste SOC N1/N2, désormais spécialisé en sécurité offensive.
+Ancien analyste SOC N1/N2 devenu spécialisé en sécurité offensive.
 </div>
+</section>
 
+<section id="certifications" class="section">
 <div class="line">
-<span class="prompt">ysa@portfolio:~$</span> cat certifications.txt
+<span class="prompt">ysa@portfolio:~$</span> ls certifications/
 </div>
 
 <div class="output">
-[+] eCPPTv3<br>
-[+] eJPTv2
+eCPPTv3.cert<br>
+eJPTv2.cert
 </div>
+</section>
 
+<section id="skills" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> ls skills/
 </div>
@@ -158,7 +209,9 @@ Ancien analyste SOC N1/N2, désormais spécialisé en sécurité offensive.
 <li>osint</li>
 </ul>
 </div>
+</section>
 
+<section id="linux" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat linux.txt
 </div>
@@ -172,7 +225,9 @@ Ancien analyste SOC N1/N2, désormais spécialisé en sécurité offensive.
 • Bash scripting & automation<br>
 • Linux administration & hardening
 </div>
+</section>
 
+<section id="experience" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat experience.log
 </div>
@@ -182,7 +237,9 @@ Ancien analyste SOC N1/N2, désormais spécialisé en sécurité offensive.
 2026-now &nbsp;&nbsp; OteriHack &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Technical Lead<br>
 2024-2026 &nbsp; Les Zelles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC N1/N2
 </div>
+</section>
 
+<section id="platforms" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat platforms.txt
 </div>
@@ -192,7 +249,9 @@ Root-Me .............. 7400+ pts<br>
 Hack The Box ......... Penetration Tester Path<br>
 HTB Academy .......... Offensive Security Training
 </div>
+</section>
 
+<section id="ctf" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat ctf_history.log
 </div>
@@ -204,13 +263,15 @@ HTB Academy .......... Offensive Security Training
 2026 | CTE v2 - L'Enfer Numérique<br>
 └── Top 20 Finalistes<br><br>
 
-2026 | THCon 26 CTF<br>
-└── Focus OSINT / PWN<br><br>
+2026 | THCon CTF<br>
+└── OSINT / PWN<br><br>
 
 2026 | HackDay<br>
-└── Focus Web Security
+└── Web Security
 </div>
+</section>
 
+<section id="projects" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> tree projects/
 </div>
@@ -234,8 +295,10 @@ AS-Rep-Roaster
 </a><br>
 
 Python tool for Active Directory auditing focused on
-AS-REP Roasting, enumeration and password cracking.
+AS-REP Roasting, enumeration and password auditing.
 </div>
+
+<br>
 
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat projects/ctf-cyber.md
@@ -246,9 +309,11 @@ AS-REP Roasting, enumeration and password cracking.
 CTF Découverte de la Cyber
 </a><br>
 
-Educational CTF designed for open-day events,
-introducing participants to the different domains of cybersecurity.
+Educational CTF designed for open-day events introducing
+participants to different cybersecurity domains.
 </div>
+
+<br>
 
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat projects/honeypot.md
@@ -260,10 +325,43 @@ Honeypot & Threat Hunting
 </a><br>
 
 Deployment of a honeypot to capture and analyze
-real-world attacks followed by threat hunting on collected telemetry.
+real-world attacks followed by threat hunting activities.
+</div>
+</section>
+
+<section id="writeups" class="section">
+<div class="line">
+<span class="prompt">ysa@portfolio:~$</span> tree writeups/
 </div>
 
+<div class="output">
+writeups/<br>
+├── White Rabbit.md<br>
+└── Baby.md
+</div>
 
+<br>
+
+<div class="line">
+<span class="prompt">ysa@portfolio:~$</span> cat writeups/White Rabbit.md
+</div>
+
+<div class="output">
+<a href="https://github.com/Gabriel-P-IT/Writeups-HTB_Labs/blob/main/White%20Rabbit.md">
+</div>
+
+<br>
+
+<div class="line">
+<span class="prompt">ysa@portfolio:~$</span> cat writeups/Baby.md
+</div>
+
+<div class="output">
+<a href="https://github.com/Gabriel-P-IT/Writeups-HTB_Labs/blob/main/White%20Rabbit.md">
+</div>
+</section>
+
+<section id="links" class="section">
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span> cat links.txt
 </div>
@@ -274,6 +372,7 @@ real-world attacks followed by threat hunting on collected telemetry.
 <a href="https://www.root-me.org/YSA-591622" target="_blank">root-me</a><br>
 <a href="https://app.hackthebox.com/public/users/626810" target="_blank">hackthebox</a>
 </div>
+</section>
 
 <div class="line">
 <span class="prompt">ysa@portfolio:~$</span>
@@ -281,7 +380,7 @@ real-world attacks followed by threat hunting on collected telemetry.
 </div>
 
 <div class="footer">
-© 2026 Gabriel PETIT - Hosted on GitHub Pages
+© 2026 Gabriel PETIT • Hosted on GitHub Pages
 </div>
 
 </body>
